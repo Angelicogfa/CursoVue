@@ -4,8 +4,8 @@
 
 * Introdução
 * Dom
- * Templates
- * Propriedades reativas
- * Eventos
- * Estilos
- * Interpolação
+    * Templates
+    * Propriedades reativas
+    * Eventos
+    * Estilos
+    * Interpolação
