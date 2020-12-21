@@ -12,5 +12,11 @@
 * Condicionais e listas
     * Condicionais
     * Listas
+* Instancia do Vue
+    * Ciclo do vue
+    * Dados gerados
+    * Vue Ref
+    * Multi-instâncias
+    * Component
 * Projetos
     * Matador de monstros
