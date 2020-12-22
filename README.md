@@ -18,5 +18,9 @@
     * Vue Ref
     * Multi-instâncias
     * Component
+* Comunicação entre componentes
+* Componentes avançados
+* Fomularios
 * Projetos
     * Matador de monstros
+    * TODO
