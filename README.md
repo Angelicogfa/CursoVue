@@ -21,6 +21,7 @@
 * Comunicação entre componentes
 * Componentes avançados
 * Fomularios
+* Diretivas
 * Projetos
     * Matador de monstros
     * TODO
