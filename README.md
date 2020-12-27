@@ -22,6 +22,7 @@
 * Componentes avançados
 * Fomularios
 * Diretivas
+* Filtros e Mixins
 * Projetos
     * Matador de monstros
     * TODO
