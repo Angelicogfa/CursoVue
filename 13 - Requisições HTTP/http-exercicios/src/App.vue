@@ -1,7 +1,14 @@
 <template>
   <div id="app" class="container">
     <h1>HTTP com Axios</h1>
-
+    <b-alert
+      show
+      dismissible
+      v-for="mensagem in mensagens"
+      :key="mensagem.texto"
+      :variant="mensagem.tipo"
+      >{{ mensagem.texto }}</b-alert
+    >
     <b-card>
       <b-form-group label="Nome:">
         <b-form-input
@@ -32,6 +39,12 @@
         <p><strong>Nome:</strong> {{ usuario.nome }}</p>
         <p><strong>Email: </strong>{{ usuario.email }}</p>
         <p><strong>ID: </strong>{{ id }}</p>
+        <b-button variant="warning" size="lg" @click="carregar(id)"
+          >Carregar</b-button
+        >
+        <b-button variant="danger" size="lg" @click="excluir(id)"
+          >Excluir</b-button
+        >
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -48,6 +61,8 @@ export default {
   //   },
   data() {
     return {
+      mensagens: [],
+      id: null,
       usuario: {
         nome: "",
         email: "",
@@ -57,13 +72,56 @@ export default {
   },
   methods: {
     async salvar() {
-      await this.$http.post("usuarios.json", this.usuario);
-      this.usuario.nome = "";
-      this.usuario.email = "";
+      const method = this.id ? "patch" : "post";
+      const finalUrl = this.id ? `/${this.id}.json` : ".json";
+      const result = await this.$http[method](
+        `/usuarios${finalUrl}`,
+        this.usuario
+      );
+
+      if (result.status === 200) {
+        this.limpar();
+        this.mensagens.push({
+          texto: "Operação realizada com sucesso!",
+          tipo: "success",
+        });
+        await this.obterUsuarios();
+      } else {
+        this.mensagens.push({
+          texto: "Erro ao persistir informação!",
+          tipo: "danger",
+        });
+      }
     },
     async obterUsuarios() {
       const results = await this.$http.get("usuarios.json");
       this.usuarios = results.data;
+    },
+    async excluir(id) {
+      const result = await this.$http.delete(`/usuarios/${id}.json`);
+      if (result.status === 200) {
+        this.limpar();
+        this.mensagens.push({
+          texto: "Operação realizada com sucesso!",
+          tipo: "success",
+        });
+        await this.obterUsuarios();
+      } else {
+        this.mensagens.push({
+          texto: "Erro ao persistir informação!",
+          tipo: "danger",
+        });
+      }
+    },
+    carregar(id) {
+      this.id = id;
+      this.usuario = { ...this.usuarios[id] };
+    },
+    limpar() {
+      this.usuario.nome = "";
+      this.usuario.email = "";
+      this.id = null;
+      this.mensagens = [];
     },
   },
 };
