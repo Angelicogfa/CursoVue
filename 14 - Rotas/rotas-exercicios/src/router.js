@@ -34,7 +34,6 @@ const router = new Router({
                 { path: ':id', component: UsuarioDetalhe, props: true },
                 { path: ':id/editar', component: UsuarioEditar, props: true, name: 'editarUsuario' },
             ], beforeEnter: (to, from, next) => {
-                console.log('usuario');
                 next();
             }
         },
@@ -44,7 +43,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    console.log('Antes da rotas -> global');
     next();
 });
 
